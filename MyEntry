@@ -1,0 +1,56 @@
+package Mabani4;
+
+import java.util.Map.Entry;
+
+public class MyEntry implements Entry {
+	Object Key;
+	Object Value;
+	public MyEntry(Object key, Object value) {
+		super();
+		Key = key;
+		Value = value;
+	}
+
+	public MyEntry() {
+
+	}
+
+	@Override
+	public Object getKey() {
+		return Key;
+	}
+
+	@Override
+	public Object getValue() {
+		return Value;
+	}
+
+	@Override
+	public Object setValue(Object arg0) {
+		Object v=Value;
+		Value=arg0;
+		return v;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof MyEntry) {
+			MyEntry e=(MyEntry) obj;
+			if(this.getKey().equals(e.getKey())){
+				if(this.getValue().equals(e.getValue())) {
+					return true;
+				}
+				return false;
+			}
+			else return false;
+		}
+		else return false;
+	}
+	@Override
+	public int hashCode() {
+		int k=Key.hashCode();
+		int v=Value.hashCode();
+		String st=k+""+v;
+		return Integer.valueOf(st);
+	}
+
+}
