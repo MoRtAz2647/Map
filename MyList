@@ -1,0 +1,284 @@
+package Mabani4;
+
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
+
+public class MyList implements List {
+	Object[] values=new Object[0];
+
+	public MyList() {
+
+	}
+
+	public MyList(Object[] o) {
+		values = o;
+	}
+
+	@Override
+	public boolean add(Object arg0) {
+		try {
+			Object[] o = new Object[values.length + 1];
+			for (int i = 0; i < values.length; i++) {
+				o[i] = values[i];
+			}
+			o[values.length] = arg0;
+			values = o;
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	@Override
+	public void add(int arg0, Object arg1) {
+		Object[] o = new Object[values.length + 1];
+		for (int i = 0; i < arg0; i++) {
+			o[i] = values[i];
+		}
+		o[arg0] = arg1;
+		for (int i = arg0 + 1; i < values.length + 1; i++) {
+			o[i] = values[i - 1];
+		}
+	}
+
+	@Override
+	public boolean addAll(Collection arg0) {
+		try {
+			Object[] o = new Object[values.length + arg0.size()];
+			for (int i = 0; i < values.length; i++) {
+				o[i] = values[i];
+			}
+			for (int i = 0; i < arg0.size(); i++) {
+				o[i + values.length] = ((MyList) arg0).get(i);
+			}
+			values=o;
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	@Override
+	public boolean addAll(int arg0, Collection arg1) {
+		try {
+			Object[] o = new Object[values.length + arg1.size()];
+			for (int i = 0; i < arg0; i++) {
+				o[i] = values[i];
+			}
+			for (int i = 0; i < arg1.size(); i++) {
+				o[i + arg0] = ((MyList) arg1).get(i);
+			}
+			for (int i = arg0; i < values.length; i++) {
+				o[i + arg1.size()] = values[i];
+			}
+			values=o;
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	@Override
+	public void clear() {
+		Object[] o=new Object[0] ;
+		values = o;
+	}
+
+	@Override
+	public boolean contains(Object arg0) {
+		for(int i=0;i<values.length;i++) {
+			if(values[i].equals(arg0)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	@Override
+	public boolean containsAll(Collection arg0) {
+		for(int i=0;i<arg0.size();i++) {
+			if(this.contains(((MyList) arg0).get(i))){
+				continue;
+			}
+			else return false;
+		}
+		return true;
+	}
+
+	@Override
+	public Object get(int arg0) {
+
+		return values[arg0];
+	}
+
+	@Override
+	public int indexOf(Object arg0) {
+		for(int i=0;i<values.length;i++) {
+			if(values[i].equals(arg0)) {
+				return i;
+			}
+		}
+		return -1;
+	}
+
+	@Override
+	public boolean isEmpty() {
+		if(values.length!=0) {
+			return true;
+		}
+		else {
+		return false;
+		}
+	}
+
+	@Override
+	public Iterator iterator() {
+		
+		return null;
+	}
+
+	@Override
+	public int lastIndexOf(Object arg0) {
+		for (int i=values.length-1;i>=0;i--) {
+			if(values[i].equals(arg0)) {
+				return i;
+			}
+		}
+		return -1;
+	}
+
+	@Override
+	public ListIterator listIterator() {
+		return null;
+	}
+
+	@Override
+	public ListIterator listIterator(int arg0) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean remove(Object arg0) {
+		try {
+			Object[] o = new Object[values.length - 1];
+			int d = 0;
+			for (int i = 0; i < values.length; i++) {
+				if (!values[i].equals(arg0)) {
+					o[d] = values[i];
+					d++;
+				}
+			}
+			if (d != values.length - 2) {
+				return false;
+			}
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	@Override
+	public Object remove(int arg0) {
+		Object oo = values[arg0];
+		Object[] o = new Object[values.length - 1];
+		for (int i = 0; i < arg0; i++) {
+			o[i] = values[i];
+		}
+		for (int i = arg0 + 1; i < values.length; i++) {
+			o[i - 1] = values[i];
+		}
+		return oo;
+	}
+
+	@Override
+	public boolean removeAll(Collection arg0) {
+		try {
+			Object[] o = new Object[values.length - arg0.size()];
+			if (this.containsAll(arg0)) {
+				int d = 0;
+				for (int i = 0; i < values.length; i++) {
+					if(!arg0.contains(values[i])) {
+						o[d]=values[i];
+						d++;
+					}
+				}
+				return true;
+			} else {
+				return false;
+			}
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	@Override
+	public boolean retainAll(Collection arg0) {
+		try {
+			MyList ml=new MyList();
+			for(int i=0;i<arg0.size();i++) {
+				if(this.contains(((MyList) arg0).get(i))) {
+					ml.add(((MyList) arg0).get(i));
+				}
+			}
+			
+			return true;
+		}catch(Exception e) {
+		return false;
+		}
+	}
+
+	@Override
+	public Object set(int arg0, Object arg1) {
+		Object oo=this.get(arg0);
+		values[arg0]=arg1;
+		return oo;
+	}
+
+	@Override
+	public int size() {
+		return values.length;
+	}
+
+	@Override
+	public List subList(int arg0, int arg1) {
+		Object[] v=new Object[arg1-arg0+1];
+		for(int i=0;i<arg1-arg0+1;i++) {
+			v[i]=this.values[i+arg0];
+		}
+		MyList ml=new MyList(v);
+		return ml;
+	}
+
+	@Override
+	public Object[] toArray() {
+		return values;
+	}
+
+	@Override
+	public Object[] toArray(Object[] arg0) {
+		int d=0;
+		for(int i=0;i<arg0.length;i++) {
+			if(arg0[i]==null) {
+				d++;
+			}
+		}
+		int v=0;
+		int a=0;
+		Object[] o=new Object[arg0.length-d+values.length];
+		for(int i=0;i<o.length;i++) {
+			if(i<arg0.length&&arg0[i]!=null) {
+				o[i]=arg0[a];
+				a++;
+			}
+			else {
+				o[i]=values[v];
+				v++;
+			}
+		}
+		return arg0;
+	}
+
+}
