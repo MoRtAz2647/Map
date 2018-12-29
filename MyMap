@@ -1,0 +1,149 @@
+package Mabani4;
+
+import java.util.Collection;
+import java.util.Map;
+import java.util.Set;
+
+public class MyMap implements Map {
+	MyEntry[] me;
+
+	public MyMap() {
+
+	}
+
+	public MyMap(MyEntry[] e) {
+		me = e;
+	}
+
+	@Override
+	public void clear() {
+		MyEntry[] e=new MyEntry[0];
+		me = e;
+	}
+
+	@Override
+	public boolean containsKey(Object arg0) {
+		try {
+			for (int i = 0; i < me.length; i++) {
+				if (me[i].getKey().equals(arg0)) {
+					return true;
+				}
+			}
+			return false;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	@Override
+	public boolean containsValue(Object arg0) {
+		try {
+			for (int i = 0; i < me.length; i++) {
+				if (me[i].getValue().equals(arg0)) {
+					return true;
+				}
+			}
+			return false;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	@Override
+	public MySet entrySet() {
+		MyList ml = new MyList(me);
+		MySet ms = new MySet();
+		ms.addAll(ml);
+		return ms;
+	}
+
+	@Override
+	public Object get(Object arg0) {
+		try {
+			for (int i = 0; i < me.length; i++) {
+				if (me[i].getKey().equals(arg0)) {
+					return me[i].getValue();
+				}
+			}
+			return null;
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
+	@Override
+	public boolean isEmpty() {
+		if (me.length == 0) {
+			return false;
+		} else
+			return true;
+	}
+
+	@Override
+	public MySet keySet() {
+		MySet ms = new MySet();
+		for (int i = 0; i < me.length; i++) {
+			ms.add(me[i].getKey());
+		}
+		return ms;
+	}
+
+	@Override
+	public Object put(Object arg0, Object arg1) {
+		a: for (int i = 0; i < me.length; i++) {
+			if (me[i].getKey().equals(arg0)) {
+				Object o = me[i].getValue();
+				me[i].setValue(arg1);
+				return o;
+			}
+		}
+		MyEntry[] e = new MyEntry[me.length + 1];
+		for (int i = 0; i < e.length; i++) {
+			e[i] = me[i];
+		}
+		e[me.length] = new MyEntry(arg0, arg1);
+		me = e;
+		return arg1;
+	}
+
+	@Override
+	public void putAll(Map arg0) {
+		MyMap mm = (MyMap) arg0;
+		for (int i = 0; i < mm.me.length; i++) {
+			this.put(mm.me[i].getKey(), mm.me[i].getValue());
+		}
+	}
+
+	@Override
+	public Object remove(Object arg0) {
+		if (this.containsKey(arg0)) {
+			MyEntry[] e = new MyEntry[me.length - 1];
+			int d = 0;
+			Object o = null;
+			for (int i = 0; i < me.length; i++) {
+				if(!me[i].getKey().equals(arg0)) {
+					e[d]=me[i];
+					d++;
+				}
+				else o=me[i].getValue();
+			}
+			return o;
+		} else
+			return null;
+	}
+
+	@Override
+	public int size() {
+		return me.length;
+	}
+
+	@Override
+	public Collection values() {
+		MyList ml = new MyList();
+		for (int i = 0; i < me.length; i++) {
+			ml.add(me[i].getValue());
+		}
+		return ml;
+	}
+
+}
