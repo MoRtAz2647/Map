@@ -1,0 +1,140 @@
+package Mabani4;
+
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.Set;
+
+public class MySet implements Set {
+	MyList values;
+
+	public MySet() {
+	}
+	
+
+	@Override
+	public boolean add(Object arg0) {
+		try {
+			if (!values.contains(arg0)) {
+				values.add(arg0);
+				return true;
+			} else
+				return false;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	@Override
+	public boolean addAll(Collection arg0) {
+		try {
+			int d = 0;
+			for (int i = 0; i < arg0.size(); i++) {
+				if (!values.contains(((MyList) arg0).get(i))) {
+					values.add(((MyList) arg0).get(i));
+				} else {
+					d++;
+				}
+			}
+			if (d != 0) {
+				return false;
+			} else
+				return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	@Override
+	public void clear() {
+		values.clear();
+	}
+
+	@Override
+	public boolean contains(Object arg0) {
+		try {
+			if (values.contains(arg0)) {
+				return true;
+			} else
+				return false;
+
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	@Override
+	public boolean containsAll(Collection arg0) {
+		try {
+			if (values.containsAll(arg0)) {
+				return true;
+			} else
+				return false;
+
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	@Override
+	public boolean isEmpty() {
+		return values.isEmpty();
+	}
+
+	@Override
+	public Iterator iterator() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean remove(Object arg0) {
+		try {
+			if (values.remove(arg0)) {
+				return true;
+			} else
+				return false;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	@Override
+	public boolean removeAll(Collection arg0) {
+		try {
+			if (values.removeAll(arg0)) {
+				return true;
+			} else
+				return false;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	@Override
+	public boolean retainAll(Collection arg0) {
+		try {
+			if (values.retainAll(arg0)) {
+				return true;
+			} else
+				return false;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	@Override
+	public int size() {
+		return values.size();
+	}
+
+	@Override
+	public Object[] toArray() {
+		return values.toArray();
+	}
+
+	@Override
+	public Object[] toArray(Object[] arg0) {
+		return values.toArray(arg0);
+	}
+
+}
